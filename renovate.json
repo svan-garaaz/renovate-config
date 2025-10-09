@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": ["dependencies"],
+  "prCreation": "immediate",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "labels": ["dependency/patch"]
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "labels": ["dependency/minor"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependency/major"]
+    },
+    {
+      "matchUpdateTypes": ["pin", "digest", "lockFileMaintenance"],
+      "labels": ["dependency/other"]
+    },
+    {
+      "matchManagers": ["npm", "yarn", "pnpm", "dockerfile"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "separateMajorMinor": true,
+      "separateMinorPatch": true,
+      "prBodyNotes": [
+        "This PR upgrades one or more dependencies.",
+        "Old → New versions are listed below.",
+        "Check changelogs/releases for details.",
+        "⚠️ Major updates may include breaking changes."
+      ]
+    },
+    {
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchManagers": ["npm", "yarn", "pnpm"],
+      "separateMultipleMajor": true
+    },
+    {
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "automerge": false
+    },
+    {
+      "labels": ["security"]
+    }
+  ],
+  "dependencyDashboard": true,
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 5
+}
