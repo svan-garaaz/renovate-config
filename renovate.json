@@ -3,8 +3,12 @@
   "extends": [
     "config:recommended"
   ],
-  "labels": ["dependencies"],
   "prCreation": "immediate",
+  "dependencyDashboard": true,
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 5,
+  "prTitle": "chore(deps): bump {{depName}} from {{currentVersion}} to {{newVersion}} ({{updateType}})",
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
@@ -31,23 +35,20 @@
         "This PR upgrades one or more dependencies.",
         "Old → New versions are listed below.",
         "Check changelogs/releases for details.",
-        "⚠️ Major updates may include breaking changes."
+        "⚠️ Major updates may include breaking changes.",
+        "✅ Please ensure CI passes before merging."
       ]
-    },
-    {
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "matchManagers": ["npm", "yarn", "pnpm"],
-      "separateMultipleMajor": true
     },
     {
       "matchUpdateTypes": ["major", "minor", "patch"],
       "automerge": false
     },
     {
-      "labels": ["security"]
+     "matchManagers": ["npm", "yarn"],
+     "matchDepTypes": ["dependencies"],
+     "matchConfidence": "high",
+     "labels": ["security"],
+     "description": "Label security-related dependency updates"
     }
-  ],
-  "dependencyDashboard": true,
-  "prConcurrentLimit": 10,
-  "prHourlyLimit": 5
+  ]
 }
