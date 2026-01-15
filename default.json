@@ -46,7 +46,6 @@
     {
      "matchManagers": ["npm", "yarn"],
      "matchDepTypes": ["dependencies"],
-     "matchConfidence": "high",
      "labels": ["security"],
      "description": "Label security-related dependency updates"
     }
